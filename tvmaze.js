@@ -63,7 +63,11 @@ function populateShows(shows) {
              <img class="card-img-top" src=${image}>
              <h5 class="card-title">${show.name}</h5>
              <p class="card-text">${summary}</p>
-             <button type ="button"  class="btn btn-success">Episodes</button>
+         
+             <button type="button" class="btn btn-success " data-toggle="modal" data-target="#exampleModalLong">
+Episodes
+</button>
+
            </div>
          </div>
        </div>
@@ -123,12 +127,13 @@ async function getEpisodes(id) {
   // TODO: return array-of-episode-info, as described in docstring above
 }
 
-let counter = 0;
+// let counter = 0;
 function populateEpisodes(episodeData) {
   let theEpisodes = episodeData.data;
   // console.log(theEpisodes);
   let episodesArray = [];
-
+  const theUL = document.getElementById("episodes-list");
+  theUL.innerHTML = "";
   for (let i = 0; i < theEpisodes.length; i++) {
     aEpisode = document.createElement("li");
     episodesArray[i] = {
@@ -140,15 +145,16 @@ function populateEpisodes(episodeData) {
     let episodeInfo = Object.values(episodesArray[i]);
     aEpisode.innerText = `${episodeInfo[1]} (season ${episodeInfo[2]}, episode ${episodeInfo[3]})`;
     // console.log(aEpisode);
-    const theUL = document.getElementById("episodes-list");
-    if (counter > 0) {
-      for (let li of Array.from(theUL.children)) {
-        li.remove();
-      }
-      counter--;
-    }
+
+    // if (counter > 0) {
+    //   for (let li of Array.from(theUL.children)) {
+    //     li.remove();
+    //   }
+    //   counter--;
+    // }
     theUL.append(aEpisode);
   }
+  $("#exampleModalLong").modal("focus");
   counter++;
   // return episodesArray;
 }
